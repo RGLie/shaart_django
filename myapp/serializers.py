@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from bson import ObjectId
 from .models import CustomUser
-
+from rest_framework import serializers
         
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -25,3 +25,13 @@ class RegisterSerializer(serializers.ModelSerializer):
 class LoginSerializer(serializers.Serializer):
     username = serializers.CharField()
     password = serializers.CharField()
+
+
+
+
+class SolvedProblemSerializer(serializers.Serializer):
+    problem_id = serializers.IntegerField()
+
+
+class ProblemIDSerializer(serializers.Serializer):
+    problem_id = serializers.IntegerField()
