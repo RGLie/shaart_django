@@ -9,7 +9,8 @@ from .serializers import UserSerializer, RegisterSerializer, LoginSerializer, Pr
 from rest_framework.permissions import IsAuthenticated
 from .serializers import SolvedProblemSerializer
 from rest_framework.views import APIView
-
+from rest_framework_simplejwt.views import TokenObtainPairView
+from .serializers import CustomTokenObtainPairSerializer
 
 class RegisterView(generics.CreateAPIView):
     queryset = CustomUser.objects.all()
@@ -30,12 +31,7 @@ class RegisterView(generics.CreateAPIView):
         return Response({"message": "Registration failed", "errors": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
 class CustomTokenObtainPairView(TokenObtainPairView):
-    permission_classes = (AllowAny,)
-
-    def post(self, request, *args, **kwargs):
-        response = super().post(request, *args, **kwargs)
-        response.data.update({'message': 'Login successful'})
-        return response
+    serializer_class = CustomTokenObtainPairSerializer
 
 class LoginView(generics.GenericAPIView):
     serializer_class = LoginSerializer
